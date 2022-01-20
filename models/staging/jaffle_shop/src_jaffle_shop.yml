@@ -1,0 +1,18 @@
+# Version
+version: 2
+
+# Sources pointing towards db
+sources:
+    - name: jaffle_shop
+      database: raw
+      schema: jaffle_shop
+      tables:
+        - name: customers
+        - name: orders
+
+        # Source Freshness
+        # Tests how old the data is... by your configurations
+          loaded_at_field: _etl_loaded_at
+          freshness:
+            warn_after: {count: 12, period: hour}
+            error_after: {count: 24, period: hour}
