@@ -4,10 +4,12 @@ version: 2
 # Sources pointing towards db
 sources:
     - name: stripe
+      description: A clone of a Snowflake application database.
       database: raw
       schema: stripe
       tables:
         - name: payment
+          description: Raw payments data.
 
         # Source Freshness
         # Tests how old the data is... by your configurations
@@ -15,3 +17,10 @@ sources:
           freshness:
             warn_after: {count: 12, period: hour}
             error_after: {count: 24, period: hour}
+          
+          columns:
+          - name: id
+            description: Primary key for payments.
+            tests:
+              - unique
+              - not_null  
