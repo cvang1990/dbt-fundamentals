@@ -10,10 +10,12 @@ models:
 
     - name: stg_orders
       columns:
+      # Test unique and not nulls
         - name: order_id
           tests:
             - unique
             - not_null
+      # Test statuses for specific values
         - name: status
           tests:
             - accepted_values:
@@ -23,3 +25,10 @@ models:
                   - return_pending
                   - returned
                   - placed
+      # Test relationship of orders to customers table
+        - name: customer_id
+          tests:
+            - relationships:
+                to: ref('stg_customers')
+                field: customer_id
+    
