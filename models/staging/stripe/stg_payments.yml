@@ -2,14 +2,20 @@ version: 2
 
 models:
     - name: stg_payments
+      description: One unique payment per row.
       columns:
         - name: order_id
+          description: Foreign key relationship to stg_orders.
           tests:
             - not_null
+            - relationships:
+                to: ref('stg_orders')
+                field: order_id
         - name: status
+          description: '{{ doc("payment_status") }}'
           tests:
             - accepted_values:
-                values:
-                    - success
-                    - fail
+                values: ['success', 'fail']
+                    # - success
+                    # - fail
     
